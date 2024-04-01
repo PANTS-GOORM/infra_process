@@ -91,7 +91,7 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-  - wordsketch.site
+  - yourdomain.com  # 실제 도메인으로 변경
 ```
    - YAML 파일을 argocd-cert.yaml과 같은 이름으로 저장한 후, 다음 명령어로 적용   
      ``` kubectl apply -f argocd-cert.yaml ```
