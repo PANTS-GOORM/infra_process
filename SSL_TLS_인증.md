@@ -40,7 +40,7 @@ spec:
           class: nginx
 ```
 
-  - 이 파일을 clusterissuer.yaml으로 저장하고, 다음 명령어를 사용하여 적용
+  - 이 파일을 clusterissuer.yaml으로 저장하고, 다음 명령어를 사용하여 적용   
     ``` kubectl apply -f clusterissuer.yaml ```   
 
 ## 인증서 발급을 위한 Ingress 리소스 구성
