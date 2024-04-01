@@ -221,15 +221,16 @@ echo \
 <br>
 ○	pod-network-cidr(10.x.x.x) 기본값=10.96.0.0/12 / [선택] service-cidr(20.x.x.x)   
 
-■	pod-network-cidr은 Pod 네트워크의 IP 주소 범위를 지정 설정된 경우 control plane은 모든 노드에 대해 CIDR을 자동으로 할당   
-■	apiserver-advertise-address는 수신 대기 중임을 알릴 IP 주소. 설정하지 않으면 기본 네트워크 인터페이스이고, Master node의 IP를 설정해주면 된다.    
-■	kubernetes control-plane bootstrap(초기화)   
+■	pod-network-cidr은 Pod 네트워크의 IP 주소 범위를 지정 설정된 경우 control plane은 모든 노드에 대해 CIDR을 자동으로 할당    
+■	apiserver-advertise-address는 수신 대기 중임을 알릴 IP 주소. 설정하지 않으면 기본 네트워크 인터페이스이고, Master node의 IP를 설정해주면 된다.     
+■	kubernetes control-plane bootstrap(초기화)    
 
 ■	``` date ```   
 ■	``` sudo kubeadm init--pod-network-cidr=10.96.0.0/12 --apiserveradvertise-address=192.168.56.100 ```   
 
 <br>
-○	kubernetes control-plane 초기화, sudo권한 없이 kuberctl사용하기   
+○	kubernetes control-plane 초기화, sudo권한 없이 kuberctl사용하기    
+
 ■	admin.conf구성 파일을 통해 Kubernetes 권한을 부여하여 실행하기 때문에 별도 권한 지정 없이 진행   
 
 ■	``` mkdir-p $HOME/.kube ```   
@@ -237,7 +238,8 @@ echo \
 ■	``` sudo chown $(id -u):$(id -g) $HOME/.kube/config ```
 
 <br>
-○	kubectl자동완성 기능 설치   
+○	kubectl자동완성 기능 설치    
+
 ■	``` sudo apt install bash-completion -y ```   
 ■ ```	source <(kubectl completion bash) ```   
 ■	``` echo "source <(kubectl completion bash)" >> ~/.bashrc ```
