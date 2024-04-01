@@ -17,13 +17,36 @@
 4. 초기 로그인   
 
   - ID: admin   
-  - password: ``` kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2 ```
+  - password: ``` kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d ```
+    
+5. 초기 비밀번호 확인
+ 
+   ``` kubectl exec -it -n argocd deployment/argocd-server -- /bin/bash ```
 
-5. Argo CD Server 서비스를 NodePort로 변경하기
+6. 초기 비밀번호 변경
+   
+   ```
+   argocd login localhost:8080
+   WARNING: server certificate had error: x509: certificate signed by unknown authority. Proceed insecurely (y/n)? y
+   Username: admin
+   Password:
+   'admin:login' logged in successfully
+   Context 'localhost:8080' updated
+   ```
+   ```
+   argocd account update-password
+   *** Enter password of currently logged in user (admin):  ## 초기 비밀번호
+   *** Enter new password for user admin:  	 ## 변경 비밀번호
+   *** Confirm new password for user admin:     ## 변경 비밀번호
+   Password updated
+   Context 'localhost:8080' updated
+   ```
+
+7. Argo CD Server 서비스를 NodePort로 변경하기
    
    ``` kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}' ```
 
-6. NodePort 확인하기
+8. NodePort 확인하기
    
    ``` kubectl get svc argocd-server -n argocd ```   
    - 서비스가 성공적으로 NodePort로 변경되었다면, 할당된 NodePort를 확인해야 합니다.  
