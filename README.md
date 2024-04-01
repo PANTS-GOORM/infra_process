@@ -276,7 +276,7 @@ complete -F __start_kubectl k
 ○	Calico 사용   
 
 ■	``` curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml ```   
-■	``` ls ```
+■	``` ls ```   
 &ensp;● calico.yaml 확인
 
 ■	``` kubectl apply -f calico.yaml ```   
