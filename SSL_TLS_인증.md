@@ -30,46 +30,68 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    email: your-email@example.com
+    email: your-email@example.com  # 실제 이메일 주소로 변경
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
     - http01:
         ingress:
-          class: nginx
+          class: nginx  # 사용 중인 Ingress 컨트롤러에 맞게 변경할 수 있음
 ```
 
   - 이 파일을 clusterissuer.yaml으로 저장하고, 다음 명령어를 사용하여 적용   
     ``` kubectl apply -f clusterissuer.yaml ```   
 
 ## 인증서 발급을 위한 Ingress 리소스 구성
-   - 애플리케이션에 대한 Ingress 리소스를 구성하고, Cert-Manager에 의해 자동으로 인증서를 발급받도록 설정
+   - 애플리케이션에 대한 Ingress 리소스를 구성하고, Cert-Manager에 의해 자동으로 인증서를 발급받도록 설정   
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: your-application
+  name: argocd-server-ingress
+  namespace: argocd
   annotations:
-    kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
+  ingressClassName: nginx  # 사용 중인 Ingress 컨트롤러에 맞게 변경
   rules:
-  - host: yourdomain.com
+  - host: yourdomain.com  # 실제 도메인으로 변경
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: your-service-name
+            name: argocd-server
             port:
               number: 80
   tls:
   - hosts:
-    - yourdomain.com
-    secretName: yourdomain-com-tls
+    - yourdomain.com  # 실제 도메인으로 변경
+    secretName: argocd-server-tls  # 필요에 따라 변경 가능
 ```
 
   - 이 파일을 ingress.yaml로 저장하고, 다음 명령어를 사용하여 적용   
     ``` kubectl apply -f ingress.yaml ```
+
+## Certificate 리소스 확인 및 생성   
+   - Certificate 리소스가 올바르게 생성되었는지 확인하고, 없다면 생성   
+```yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server-tls
+  namespace: argocd
+spec:
+  secretName: argocd-server-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - wordsketch.site
+```
+   - YAML 파일을 argocd-cert.yaml과 같은 이름으로 저장한 후, 다음 명령어로 적용   
+     ``` kubectl apply -f argocd-cert.yaml ```
