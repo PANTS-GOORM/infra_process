@@ -2,13 +2,13 @@
 
 1. 명령줄 도구 설치 (선택사항)   
 
-``` sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 ```
+``` sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 ```   
 ``` sudo chmod +x /usr/local/bin/argocd ```   
 
 2. Argo CD 서버 설치   
 
-``` kubectl create namespace argocd ```
-``` kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml ```
+``` kubectl create namespace argocd ```   
+``` kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml ```   
 
 3. Argo CD 웹 UI에 접근   
 
@@ -17,7 +17,7 @@
 
 4. 초기 로그인   
 
-  - ID: admin
+  - ID: admin   
   - password: ``` kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2 ```
 
 5. Argo CD Server 서비스를 NodePort로 변경하기   
