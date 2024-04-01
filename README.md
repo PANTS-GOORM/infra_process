@@ -214,3 +214,77 @@ echo \
 ■	``` sudo systemctl daemon-reload ```   
 ■	``` sudo systemctl restart kubelet.service ```   
 ■	``` sudo systemctl enable --now kubelet.service ```   
+
+
+# ●	Kubernetes Node 마스터 환경 구성
+
+<br>
+○	pod-network-cidr(10.x.x.x) 기본값=10.96.0.0/12 / [선택] service-cidr(20.x.x.x)   
+
+■	pod-network-cidr은 Pod 네트워크의 IP 주소 범위를 지정 설정된 경우 control plane은 모든 노드에 대해 CIDR을 자동으로 할당   
+■	apiserver-advertise-address는 수신 대기 중임을 알릴 IP 주소. 설정하지 않으면 기본 네트워크 인터페이스이고, Master node의 IP를 설정해주면 된다.    
+■	kubernetes control-plane bootstrap(초기화)   
+
+■	``` date ```   
+■	``` sudo kubeadm init--pod-network-cidr=10.96.0.0/12 --apiserveradvertise-address=192.168.56.100 ```   
+
+<br>
+○	kubernetes control-plane 초기화, sudo권한 없이 kuberctl사용하기   
+■	admin.conf구성 파일을 통해 Kubernetes 권한을 부여하여 실행하기 때문에 별도 권한 지정 없이 진행   
+
+■	``` mkdir-p $HOME/.kube ```   
+■	``` sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config ```   
+■	``` sudo chown $(id -u):$(id -g) $HOME/.kube/config ```
+
+<br>
+○	kubectl자동완성 기능 설치   
+■	``` sudo apt install bash-completion -y ```   
+■ ```	source <(kubectl completion bash) ```   
+■	``` echo "source <(kubectl completion bash)" >> ~/.bashrc ```
+
+■	``` complete -F __start_kubectl k ```   
+■	``` vi .bashrc ```   
+```
+alias k=kubectl 
+alias kg='kubectl get' 
+alias kc='kubectl create' 
+alias ka='kubectl apply' 
+alias kr='kubectl run' 
+alias kd='kubectl delete' 
+complete -F __start_kubectl k
+```
+■	``` source .bashrc ```   
+
+■	``` sudo netstat -ntlp | grep LISTEN ```
+
+<br>
+○	Node 확인   
+
+■	``` kubectl get node ```   
+■	``` kubectl get po -A ```
+
+<br>
+○	Worker Node에서 Master Node에 join   
+
+■	cluster 생성 후 출력되는 kubeadm join 명령 복사해서 사용
+&ensp;●	예)
+&ensp;●	``` sudo kubeadm join 192.168.56.100:6443 --token 3p0jo7.pwoq2lndhx5xk45s \--discovery-token-ca-cert-hash ```   
+
+## CNI 구성
+
+<br>
+○	Calico 사용   
+
+■	``` curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml ```   
+■	``` ls ```
+&ensp;● calico.yaml 확인
+
+■	``` kubectl apply -f calico.yaml ```   
+■	``` kubectl get no ```
+
+■	``` route -n ```   
+■	``` kubectl get po -A ```
+
+■	``` kubectl cluster-info ```   
+■	``` kubeadm config print init-defaults ```
+
