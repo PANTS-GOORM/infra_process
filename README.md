@@ -173,7 +173,7 @@ echo \
 
 ■	``` sudo mkdir -p /etc/systemd/system/docker.service.d ```
 
-■	``` sudo usermod -aG docker worker ```    
+■	``` sudo usermod -aG docker ubuntu ```    
 ■	``` sudo systemctl daemon-reload ```  
 
 ■	``` sudo systemctl enable docker ```
