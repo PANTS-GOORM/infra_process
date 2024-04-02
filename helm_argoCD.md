@@ -44,7 +44,7 @@ helm version 명령어를 실행하여 설치를 확인
 6. 초기 비밀번호 변경
    
    ```
-   argocd login localhost:8080
+   $ argocd login localhost:8080
    WARNING: server certificate had error: x509: certificate signed by unknown authority. Proceed insecurely (y/n)? y
    Username: admin
    Password:
@@ -52,7 +52,7 @@ helm version 명령어를 실행하여 설치를 확인
    Context 'localhost:8080' updated
    ```
    ```
-   argocd account update-password
+   $ argocd account update-password
    *** Enter password of currently logged in user (admin):  ## 초기 비밀번호
    *** Enter new password for user admin:  	 ## 변경 비밀번호
    *** Confirm new password for user admin:     ## 변경 비밀번호
