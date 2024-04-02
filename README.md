@@ -232,7 +232,7 @@ echo \
 ■	kubernetes control-plane bootstrap(초기화)    
 
 ■	``` date ```   
-■	``` sudo kubeadm init --pod-network-cidr=10.96.0.0/12 --apiserveradvertise-address=192.168.56.100 ```   
+■	``` sudo kubeadm init --pod-network-cidr=10.96.0.0/12 --apiserver-advertise-address=192.168.56.100 ```   
 
 <br>
 ○	kubernetes control-plane 초기화, sudo권한 없이 kuberctl사용하기    
