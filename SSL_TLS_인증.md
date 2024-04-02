@@ -48,7 +48,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd-server-ingress
+  name: server-ingress
   namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -60,13 +60,20 @@ spec:
   - host: yourdomain.com  # 실제 도메인으로 변경
     http:
       paths:
-      - path: /
+      - path: /... # argoCD 패스로 변경
         pathType: Prefix
         backend:
           service:
             name: argocd-server
             port:
-              number: 80
+              number: 443
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: your-app # 실제 디플로이 이름으로 변경
+            port:
+              number: 443
   tls:
   - hosts:
     - yourdomain.com  # 실제 도메인으로 변경
@@ -75,22 +82,3 @@ spec:
 
   - 이 파일을 ingress.yaml로 저장하고, 다음 명령어를 사용하여 적용   
     ``` kubectl apply -f ingress.yaml ```
-
-## Certificate 리소스 확인 및 생성   
-   - Certificate 리소스가 올바르게 생성되었는지 확인하고, 없다면 생성   
-```yaml
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: argocd-server-tls
-  namespace: argocd
-spec:
-  secretName: argocd-server-tls
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  dnsNames:
-  - yourdomain.com  # 실제 도메인으로 변경
-```
-   - YAML 파일을 argocd-cert.yaml과 같은 이름으로 저장한 후, 다음 명령어로 적용   
-     ``` kubectl apply -f argocd-cert.yaml ```
