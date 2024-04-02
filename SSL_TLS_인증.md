@@ -21,7 +21,10 @@
 3. Cert-Manager 설치
      
    ```
-   helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.8.0
+   helm install cert-manager jetstack/cert-manager \
+   --namespace cert-manager \
+   --version v1.12.0 \
+   --set installCRDs=true
    ```
 
 4. Nginx Controller 설치
