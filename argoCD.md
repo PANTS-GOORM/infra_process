@@ -13,6 +13,11 @@
 3. Argo CD 웹 UI에 접근   
    ``` kubectl port-forward svc/argocd-server -n argocd {port}:443 ```   
     - port는 외부 포트
+  
+
+## !!!!: 헬름으로 설치하기   
+``` helm install my-argo-cd argo/argo-cd -n argocd --create-namespace  ``` 
+
 
 4. 초기 로그인   
 
