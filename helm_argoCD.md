@@ -1,23 +1,36 @@
-# Argo CD 설치
+## Helm 설치하기
 
-1. 명령줄 도구 설치 (선택사항)
+Linux에서 Helm 설치하기
+
+최신 버전의 Helm을 설치하기 위한 스크립트를 실행합니다.
+
+``` 
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+
+helm version 명령어를 실행하여 설치를 확인
+
+``` helm version ```
+
+## Argo CD 설치하기
+
+1. Argo CD를 위한 네임스페이스 생성하기
+
+   ``` kubectl create namespace argocd ```
+
+2. Helm 차트 저장소 추가하기
+
+   ``` helm repo add argo https://argoproj.github.io/argo-helm ```
    
-   ``` sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 ```   
-   ``` sudo chmod +x /usr/local/bin/argocd ```   
+3. Helm을 통해 Argo CD 설치하기
 
-2. Argo CD 서버 설치
-   
-   ``` kubectl create namespace argocd ```   
-   ``` kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml ```   
+   ``` helm install argocd argo/argo-cd --namespace argocd --version <version> ```
 
-3. Argo CD 웹 UI에 접근   
-   ``` kubectl port-forward svc/argocd-server -n argocd {port}:443 ```   
-    - port는 외부 포트
-  
+   3-1. 포트 포워딩 설정(옵션)
 
-## !!!!: 헬름으로 설치하기   
-``` helm install my-argo-cd argo/argo-cd -n argocd --create-namespace  ``` 
-
+   ``` kubectl port-forward svc/argocd-server -n argocd 8080:443 ```
 
 4. 초기 로그인   
 
