@@ -8,7 +8,7 @@
    kubectl create namespace ingress-nginx  
    ```  
 
-2. Cert-Manager Helm 차트 추가 및 설치   
+2. 차트 추가
 
   - Helm 차트 저장소 추가
 
