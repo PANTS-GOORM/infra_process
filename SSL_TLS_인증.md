@@ -33,6 +33,12 @@
    helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-nginx
    ```
 
+   aws용 nginx
+   
+   ```
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/aws/deploy.yaml
+   ```
+
 ## Let's Encrypt를 위한 Issuer 또는 ClusterIssuer 구성
 
   - Issuer: 특정 네임스페이스에서만 유효합니다.   
