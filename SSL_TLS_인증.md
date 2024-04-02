@@ -11,7 +11,6 @@
 3. Cert-Manager Helm 차트 추가 및 설치   
 
   - Helm 차트 저장소 추가    
-``` sudo snap install helm --classic ```   
 ``` helm repo add jetstack https://charts.jetstack.io ```   
 ``` helm repo update ```
 
