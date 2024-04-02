@@ -78,20 +78,20 @@ spec:
   - host: yourdomain.com  # 실제 도메인으로 변경
     http:
       paths:
-      - path: /... # argoCD 패스로 변경
+      - path: /argocd # argoCD 패스로 변경
         pathType: Prefix
         backend:
           service:
             name: argocd-server
             port:
-              number: 443
+              number: 80
       - path: /
         pathType: Prefix
         backend:
           service:
             name: your-app # 실제 디플로이 이름으로 변경
             port:
-              number: 443
+              number: 80
   tls:
   - hosts:
     - yourdomain.com  # 실제 도메인으로 변경
