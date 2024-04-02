@@ -13,7 +13,9 @@
 
 <br>
 ○	스왑의 비활성화
+
 ■	kubelet이 제대로 작동하게 하려면 반드시 스왑을 사용하지 않도록 설정한다.   
+
 ■	``` sudo swapoff -a ```   
 &ensp;●	swap 기능 off
 
