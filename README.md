@@ -33,6 +33,7 @@
 
 <br>
 ○	NTP( Network Time Protocol ) 설정   
+
 ■	Kubernetes cluster는 보통 여러 개의 VM이나 서버로 구성되기 때문에 cluster 내의 모든 Node 들은 NTP를 통해서 시간 동기화 요구   
 
 ■	``` sudo apt -y install ntp ```   
