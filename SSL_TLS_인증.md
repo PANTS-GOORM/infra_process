@@ -2,17 +2,13 @@
 
 ## Cert-Manager 및 Nginx 컨트롤러 설치
 
-1. Cert-Manager CustomResourceDefinitions (CRDs) 설치   
+1. 네임스페이스 추가   
    ```
-   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.crds.yaml
-   ```
-
-3. Cert-Manager 네임스페이스 추가   
-   ```
-   kubectl create namespace cert-manager
+   kubectl create namespace cert-manager  
+   kubectl create namespace ingress-nginx  
    ```  
 
-4. Cert-Manager Helm 차트 추가 및 설치   
+2. Cert-Manager Helm 차트 추가 및 설치   
 
   - Helm 차트 저장소 추가
 
@@ -22,16 +18,15 @@
     helm repo update
     ```
 
-4. Cert-Manager 설치
+3. Cert-Manager 설치
      
    ```
    helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.8.0
    ```
 
-6. Nginx Controller 설치
+4. Nginx Controller 설치
    
-   ```
-   kubectl create namespace ingress-nginx   
+   ``` 
    helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-nginx
    ```
 
