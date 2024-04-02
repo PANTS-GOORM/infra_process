@@ -37,7 +37,7 @@ helm version 명령어를 실행하여 설치를 확인
   - ID: admin   
   - password: ``` kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d ```
     
-5. 초기 비밀번호 확인
+5. 컨테이너 접속
  
    ``` kubectl exec -it -n argocd deployment/argocd-server -- /bin/bash ```
 
