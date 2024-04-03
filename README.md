@@ -1,3 +1,5 @@
+# AWS ELB 사용문제로 폐기
+
 # Kubernetes Node 공통 환경 구성
 <br>
 ○	apt 업데이트   
