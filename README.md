@@ -1,4 +1,4 @@
-# AWS ELB 사용문제로 폐기
+# EKS 구성으로 대체
 
 # Kubernetes Node 공통 환경 구성
 <br>
