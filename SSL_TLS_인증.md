@@ -82,7 +82,7 @@ spec:
   - host: yourdomain.com  # 실제 도메인으로 변경
     http:
       paths:
-      - path: /argocd(/|$)(.*) # argoCD 패스로 변경
+      - path: /argocd # argoCD 패스로 변경
         pathType: Prefix
         backend:
           service:
