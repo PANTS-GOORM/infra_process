@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx  # 사용 중인 Ingress 컨트롤러에 맞게 변경
   rules:
-  - host: yourdomain.com  # 실제 도메인으로 변경
+  - host: www.yourdomain.com  # 실제 도메인으로 변경
     http:
       paths:
       - path: /
@@ -22,5 +22,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - yourdomain.com  # 실제 도메인으로 변경
+    - www.yourdomain.com  # 실제 도메인으로 변경
     secretName: web-tls
