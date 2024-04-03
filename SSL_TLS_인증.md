@@ -33,7 +33,7 @@
    helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-nginx
    ```
 
-   aws용 nginx
+   참고: aws용 nginx
    
    ```
    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/aws/deploy.yaml
