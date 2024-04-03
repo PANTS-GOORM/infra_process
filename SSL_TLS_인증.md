@@ -74,17 +74,16 @@ metadata:
   namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx  # 사용 중인 Ingress 컨트롤러에 맞게 변경
   rules:
-  - host: yourdomain.com  # 실제 도메인으로 변경
+  - host: argocd.yourdomain.com  # 실제 도메인으로 변경
     http:
       paths:
-      - path: /argocd(/|$)(.*)
-        pathType: ImplementationSpecific
+      - path: /argocd
+        pathType: Prefix
         backend:
           service:
             name: argocd-server
@@ -92,7 +91,7 @@ spec:
               number: 80
   tls:
   - hosts:
-    - yourdomain.com  # 실제 도메인으로 변경
+    - argocd.yourdomain.com  # 실제 도메인으로 변경
     secretName: argocd-server-tls  # 필요에 따라 변경 가능
 ```
 
