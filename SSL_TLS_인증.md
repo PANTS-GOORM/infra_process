@@ -74,16 +74,16 @@ metadata:
   namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx  # 사용 중인 Ingress 컨트롤러에 맞게 변경
   rules:
   - host: yourdomain.com  # 실제 도메인으로 변경
     http:
       paths:
-      - path: /argocd # argoCD 패스로 변경
-        pathType: Prefix
+      - path: /argocd(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: argocd-server
