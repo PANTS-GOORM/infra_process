@@ -136,3 +136,42 @@ spec:
 ```
 
 # 잉그레스
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monitoring-ingress
+  namespace: monitoring
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+spec:
+  rules:
+  - host: prometheus.yourdomain.com # 실제 도메인으로 변경
+    http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-server
+                port:
+                  number: 80
+  - host: grafana.yourdomain.com # 실제 도메인으로 변경
+    http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 80
+  tls:
+  - hosts:
+    - prometheus.yourdomain.com # 실제 도메인으로 변경
+    - grafana.yourdomain.com # 실제 도메인으로 변경
+    secretName: monitoring-tls-secret # 필요에 따라 변경 가능
+```
