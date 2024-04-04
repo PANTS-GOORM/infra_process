@@ -55,6 +55,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: grafana-pvc
+  namespace: monitoring
 spec:
   accessModes:
     - ReadWriteOnce
