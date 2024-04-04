@@ -68,6 +68,7 @@ metadata:
   labels:
     app: grafana
   name: grafana
+  namespace: monitoring
 spec:
   selector:
     matchLabels:
