@@ -148,6 +148,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
+  ingressClassName: nginx  # 사용 중인 Ingress 컨트롤러에 맞게 변경
   rules:
   - host: prometheus.yourdomain.com # 실제 도메인으로 변경
     http:
